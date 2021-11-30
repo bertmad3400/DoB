@@ -1,5 +1,6 @@
 import sqlite3
 import random
+import secrets
 from base64 import b64encode
 from objects.wallet import newWallet
 
@@ -9,7 +10,7 @@ conn = con = sqlite3.connect('users.db')
 
 cur = conn.cursor()
 
-cur.execute('''CREATE TABLE users (name text, cpr text, publicKey text, privateKey text)''')
+cur.execute('''CREATE TABLE users (name text, cpr text, publicKey text, privateKey text, password text)''')
 
 for i,name in enumerate(names):
 
@@ -18,8 +19,9 @@ for i,name in enumerate(names):
     cpr = f"{random.randint(0,999999):06}-{random.randint(0,9999):04}"
     currentWallet = newWallet()
     publicKey, privateKey = b64encode(currentWallet.publicKey).decode("utf-8"), b64encode(currentWallet.privateKey).decode("utf-8")
+    password = secrets.token_urlsafe(16)
 
-    cur.execute(f"INSERT INTO users (name, cpr, publicKey, privateKey) VALUES ('{name}','{cpr}','{publicKey}','{privateKey}')")
+    cur.execute(f"INSERT INTO users (name, cpr, publicKey, privateKey, password) VALUES ('{name}','{cpr}','{publicKey}','{privateKey}', '{password}')")
 
 conn.commit()
 conn.close()
