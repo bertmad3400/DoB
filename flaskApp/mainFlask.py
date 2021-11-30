@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.static_folder = "./static"
 app.template_folder = "./templates"
 
-@app.route("/publicKey/<string:cpr>")
+@app.route("/api/publicKey/<string:cpr>")
 def returnPublicKey(cpr):
     conn = sqlite3.connect("users.db")
     cur = conn.cursor()
@@ -20,7 +20,7 @@ def returnPublicKey(cpr):
 
     return Response(json.dumps({"publicKey" : publicKey}), mimetype='application/json')
 
-@app.route("/privateKey/<string:cpr>/<string:password>")
+@app.route("/api/privateKey/<string:cpr>/<string:password>")
 def returnPublicKey(cpr, password):
     conn = sqlite3.connect("users.db")
     cur = conn.cursor()
