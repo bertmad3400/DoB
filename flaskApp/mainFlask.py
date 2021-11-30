@@ -8,27 +8,30 @@ app = Flask(__name__)
 app.static_folder = "./static"
 app.template_folder = "./templates"
 
-@app.route("/api/publicKey/<string:cpr>")
-def returnPublicKey(cpr):
+def requestSingleDBEntry(fieldName, identifierFields, identifierValues):
     conn = sqlite3.connect("users.db")
     cur = conn.cursor()
-    cur.execute("select publicKey from users where cpr=?", (cpr,))
 
-    publicKey = cur.fetchone()[0]
+    identifierFieldsString = ' and '.join([f"{fieldName} = ?" for fieldName in identifierFields])
+    cur.execute(f"select {fieldName} from users where {identifierFieldsString}", tuple(value for value in identifierValues))
+
+    DBEntry = cur.fetchone()
 
     conn.close()
+
+    return DBEntry[0] if isinstance(DBEntry, tuple) else DBEntry
+
+@app.route("/api/publicKey/<string:cpr>")
+def returnPublicKey(cpr):
+
+    publicKey = requestSingleDBEntry("publicKey", ["cpr"], [cpr])
 
     return Response(json.dumps({"publicKey" : publicKey}), mimetype='application/json')
 
 @app.route("/api/privateKey/<string:cpr>/<string:password>")
-def returnPublicKey(cpr, password):
-    conn = sqlite3.connect("users.db")
-    cur = conn.cursor()
-    cur.execute("select privateKey from users where cpr=? and password=?", (cpr,password))
+def returnPrivateKey(cpr, password):
 
-    privateKey = cur.fetchone()[0]
-
-    conn.close()
+    privateKey = requestSingleDBEntry("privateKey", ["cpr", "password"], [cpr, password])
 
     return Response(json.dumps({"privateKey" : privateKey}), mimetype='application/json')
 
