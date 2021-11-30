@@ -20,6 +20,19 @@ def returnPublicKey(cpr):
 
     return Response(json.dumps({"publicKey" : publicKey}), mimetype='application/json')
 
+@app.route("/privateKey/<string:cpr>/<string:password>")
+def returnPublicKey(cpr, password):
+    conn = sqlite3.connect("users.db")
+    cur = conn.cursor()
+    cur.execute("select privateKey from users where cpr=? and password=?", (cpr,password))
+
+    privateKey = cur.fetchone()[0]
+
+    conn.close()
+
+    return Response(json.dumps({"privateKey" : privateKey}), mimetype='application/json')
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
