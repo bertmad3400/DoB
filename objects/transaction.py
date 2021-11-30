@@ -3,6 +3,7 @@ from Crypto.Hash import SHA256
 from Crypto.PublicKey import RSA
 from Crypto.Signature import pkcs1_15
 
+import json
 
 class transaction():
     def __init__(self, username, cpr, politicalParty, signature=None):
@@ -11,9 +12,11 @@ class transaction():
         self.politicalParty = politicalParty
         self.signature = signature
 
+    def toString(self):
+        return json.dumps({ "username" : self.username, "cpr" : self.cpr, "politicalParty" : self.politicalParty })
+
     def calculateTransactionHash(self):
-        transaction = self.username + self.cpr + self.politicalParty
-        return SHA256.new(transaction.encode())
+        return SHA256.new(self.toString().encode("utf-8"))
 
     def sign(self, privateKey):
         transactionHash = self.calculateTransactionHash()
