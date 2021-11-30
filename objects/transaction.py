@@ -1,4 +1,4 @@
-from base64 import b64encode
+from base64 import b64encode, b64decode
 from Crypto.Hash import SHA256
 from Crypto.PublicKey import RSA
 from Crypto.Signature import pkcs1_15
@@ -18,3 +18,11 @@ class transaction():
     def sign(self, privateKey):
         transactionHash = self.calculateTransactionHash()
         self.signature = b64encode(pkcs1_15.new(RSA.import_key(privateKey)).sign(transactionHash))
+
+    def verify(self, publicKey):
+        transactionHash = self.calculateTransactionHash()
+        try:
+            pkcs1_15.new(RSA.import_key(publicKey)).verify(transactionHash, b64decode(self.signature))
+            return True
+        except:
+            return False
