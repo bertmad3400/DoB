@@ -14,11 +14,11 @@ def returnPublicKey(cpr):
     cur = conn.cursor()
     cur.execute("select publicKey from users where cpr=?", (cpr,))
 
-    cprNumber = cur.fetchone()[0]
+    publicKey = cur.fetchone()[0]
 
     conn.close()
 
-    return Response(json.dumps({"cpr" : cprNumber}), mimetype='application/json')
+    return Response(json.dumps({"publicKey" : publicKey}), mimetype='application/json')
 
 
 if __name__ == '__main__':
