@@ -3,6 +3,8 @@ from base64 import b64decode
 from Crypto.Hash import SHA256
 import json
 
+PoWNDigits = 5
+
 class block():
     def __init__(self, lastBlockHash, transactionList):
         self.lastBlockHash = lastBlockHash
@@ -23,3 +25,17 @@ class block():
                 return self.transactionList.index(transaction)
 
         return -1
+
+    def calculatePoW(self):
+        for i in range(1, 100000000):
+            self.proofOfWork = i
+            if self.verifyPoW():
+                return True
+
+        return False
+
+    def verifyPoW(self):
+        if self.getBlockHash().hexdigest()[:PoWNDigits] == "0" * PoWNDigits:
+            return True
+        else:
+            return False
