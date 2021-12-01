@@ -3,7 +3,9 @@ from base64 import b64decode
 from Crypto.Hash import SHA256
 import json
 
-PoWNDigits = 5
+PoWNDigits = 2
+
+maxNTransactions = 3
 
 class block():
     def __init__(self, lastBlockHash, transactionList):
@@ -36,5 +38,15 @@ class block():
     def verifyPoW(self):
         if self.getBlockHash().hexdigest()[:PoWNDigits] == "0" * PoWNDigits:
             return True
+        else:
+            return False
+
+    def appendTransaction(self, transaction):
+        if transaction.verify():
+            self.transactionList.append(transaction)
+            if len(self.transactionList) > (maxNTransactions - 1):
+                return True
+            else:
+                return None
         else:
             return False
