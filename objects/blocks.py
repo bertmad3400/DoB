@@ -13,7 +13,7 @@ class block():
 
     def toString(self):
         transactionString = [transaction.toString() for transaction in self.transactionList]
-        return json.dumps({ "lastBlock" : self.lastBlockHash, "transactions" : transactionString, "PoW" : self.proofOfWork })
+        return json.dumps({ "lastBlock" : self.lastBlockHash.hexdigest(), "transactions" : transactionString, "PoW" : self.proofOfWork })
 
     def getBlockHash(self):
         return SHA256.new(self.toString().encode("utf-8"))
