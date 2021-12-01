@@ -13,10 +13,14 @@ class transaction():
         self.signature = signature
 
     def toString(self):
+        return json.dumps({ "username" : self.username, "cpr" : self.cpr, "politicalParty" : self.politicalParty, "signature" : self.signature.decode("utf-8") if self.signature != None else self.signature })
+
+    def transToString(self):
         return json.dumps({ "username" : self.username, "cpr" : self.cpr, "politicalParty" : self.politicalParty })
 
+
     def calculateTransactionHash(self):
-        return SHA256.new(self.toString().encode("utf-8"))
+        return SHA256.new(self.transToString().encode("utf-8"))
 
     def sign(self, privateKey):
         transactionHash = self.calculateTransactionHash()
