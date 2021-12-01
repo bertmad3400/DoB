@@ -12,3 +12,13 @@ class chain():
             return True
         else:
             return False
+
+    def verifyChain(self):
+        for blockNumber, block in enumerate(self.blockchain):
+            if not (block.verifyTransactions() or block.verifyPoW()):
+                return False
+            if not blockNumber == 0:
+                if not block.lastBlockHash.digest() == self.blockchain[blockNumber - 1].getBlockHash().digest():
+                    return False
+
+        return True
