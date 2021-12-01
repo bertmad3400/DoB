@@ -5,3 +5,10 @@ class chain():
             return None
         else:
             return False
+
+    def appendBlock(self, blockToAppend):
+        if blockToAppend.verifyTransactions() == -1 and blockToAppend.verifyPoW() and blockToAppend.lastBlockHash.digest() == self.blockchain[-1].getBlockHash().digest():
+            self.blockchain.append(blockToAppend)
+            return True
+        else:
+            return False
