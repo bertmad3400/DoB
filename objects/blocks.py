@@ -20,8 +20,7 @@ class block():
 
     def verifyTransactions(self):
         for transaction in self.transactionList:
-            transactionPublicKey = b64decode(requests.get(f"http://localhost:5000/api/publicKey/{transaction.cpr}").json()["publicKey"].encode("utf-8"))
-            if not transaction.verify(transactionPublicKey):
+            if not transaction.verify():
                 return self.transactionList.index(transaction)
 
         return -1
