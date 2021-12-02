@@ -62,6 +62,28 @@ def returnPrivateKey(cpr, password):
 
     return Response(json.dumps({"privateKey" : privateKey}), mimetype='application/json')
 
+@app.route("/api/submitTransaction", methods=["POST"])
+def submitTransaction():
+    try:
+        details = {}
+        for element in ["username", "cpr", "politicalParty", "signature"]:
+            currentElement = element
+            details[element] = request.get_json(force=True)[element]
+    except:
+        return Response(response=json.dumps({"error" : f'The needed paramter "{currentElement}" was not sent.'}), mimetype="application/json", status=422)
+
+    details["signature"] = b64decode(details["signature"])
+
+    details["publicKey"] = requestSingleDBEntry("publicKey", ["cpr"], [details["cpr"]])
+
+    currentTransaction = transaction(details["username"], details["cpr"], details["politicalParty"], signature=details["signature"], publicKey=details["publicKey"])
+
+    if currentTransaction.verify():
+        handleNewTransaction(currentTransaction)
+    else:
+        return Response(response=json.dumps({"error" : "Transaction is not valid"}), mimetype="application/json", status=422)
+
+
 
 
 if __name__ == '__main__':
