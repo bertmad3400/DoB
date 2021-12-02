@@ -65,26 +65,26 @@ citestyle=authoryear-ibid,
 
 \lstset{style=mystyle}
 
-\begin{document} 
+\begin{document}
 
 \newgeometry{left=3cm,bottom=3cm}
 \begin{titlepage} % Suppresses headers and footers on the title page
 
 	\centering % Centre everything on the title page
-	
+
 	\scshape % Use small caps for all text on the title page
-	
+
 	\vspace*{\baselineskip} % White space at the top of the page
-	
+
 	%------------------------------------------------
 	%	Title
 	%------------------------------------------------
-	
+
 	\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} % Thick horizontal rule
 	\rule{\textwidth}{0.4pt} % Thin horizontal rule
-	
+
 	\vspace{0.75\baselineskip} % Whitespace above the title
-	
+
 	{\LARGE DEMOKRATI\\ OG\\ } % Title
 
 	\vspace{0.75\baselineskip} % Whitespace below the title
@@ -92,12 +92,12 @@ citestyle=authoryear-ibid,
 	{\LARGE BLOCKCHAIN}
 
 	\vspace{0.75\baselineskip} % Whitespace below the title
-	
+
 	\rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % Thin horizontal rule
 	\rule{\textwidth}{1.6pt} % Thick horizontal rule
-	
+
 	\vspace{2\baselineskip} % Whitespace after the title block
-	
+
 	%------------------------------------------------
 	%	Subtitle
 	%------------------------------------------------
@@ -195,7 +195,12 @@ Derudover kan vi også lave en list over krav hvor det ville være fordelagtigt 
 Udover disse problemer er der også en del praktisk udfordringer associeret med sig. Det er (grundet landets størrelse) ikke nær så stort et problem her i Danmark, men i USA kan valgende godt vise sige at være et større projekt med en lang række praktiske udfordringer. Et estimat fra MIT placerer de årlige omkostninger for administrationen forbundet med de 2-årige føderale valg på et minimum af 2 milliarder dollars årligt. Derfor er det også centralt at vi udvikler en løsning der ikke bare opfylder de tidligere krav, men som også skalerbar og økonomisk bæredygtig.
 
 \subsection{Nuværende løsninger}
-Der er en række løsninger der i øjeblikket er blevet forsøg anvendt til at løse dele af tidligere omtalt problematik, men deres success har desværre været ganske begrænset. En af de nuværende løsning der i øjeblikket er blevet taget delvist i brug i dele af USA er den kontroversielle Voter ID lovgivning som kræver en form for identifikation (varierende fra stat til stat) for at stemme. Den forsøger at løse problemet hvor der sker valgsnyd på et individuelt plan, hvor et individ lykkedes med af flere omgange, ved at stemme på vegne af andre. Lovgivningen er som sagt kontroversiel, da der er mange politiske grupper og lobby organisationer der påstår at den forhindrer især visse demografiske grupper i at stemme, ved at gøre det så svært at det i praksis er umuligt. Der er endnu ikke entydig videnskabelig evidens som understøtter 
+Der er en række løsninger der i øjeblikket er blevet forsøg anvendt til at løse dele af tidligere omtalt problematik, men deres success har desværre været ganske begrænset. En af de nuværende løsning der i øjeblikket er blevet taget delvist i brug i dele af USA er den kontroversielle Voter ID lovgivning som kræver en form for identifikation (varierende fra stat til stat) for at stemme. Den forsøger at løse problemet hvor der sker valgsnyd på et individuelt plan, hvor et individ lykkedes med af flere omgange, ved at stemme på vegne af andre. Lovgivningen er som sagt kontroversiel, da der er mange politiske grupper og lobby organisationer der påstår at den forhindrer især visse demografiske grupper i at stemme, ved at gøre det så svært at det i praksis er umuligt. Der er dog endnu ikke entydig videnskabelig evidens som understøtter disse påstande, men der er heller endnu ikke videnskabelig evidens til at understøtte at Voter ID faktisk er effektivt, og selv hvis det er, arbejder det kun med en meget lille del af problematikken.
+
+USA har også i en årrække forsøgt og lykkedes at implementere digital stemmebokse for at arbejde på den enorme udfordring det er at have et valg der dækker et land på mere end 300 millioner indbygger. Desværre har dette vist sig at medføre markante problemer i forhold til sikkerheden, og den internationalle konferrence for IT-sikkerhed og hacking DEFCON skabte allerde i 2018 overskrifter landet over da de demonstrerede at det var så nemt at hacke de digitale stemmebokse at børn bogstaveligt talt var i stand til det\footcite{hern_kids_2018}. Derfor er dette naturligvis heller ikke en bæredygtig løsning, og selvom mere moderne digitale stemmebokse er under udvikling, er der sandsynligvis stadig meget lang tid til at de rammer markedet\footcite{ng_darpas_nodate}.
+
+\section{Nyt løsningsforslag}
+Det løsningforslag denne opgave beskæftiger sig med er et der minder meget om de digitale stemmebokse fra USA og på samme tid er radikalt anderledes. Frem for at anvende centraliserede digitale systemer anvendes der i dette projekt et blockchain system - nærmere beskrevet i "Designvalg" afsnittet
 
 STOPSTOP
 
