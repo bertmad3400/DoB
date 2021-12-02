@@ -42,11 +42,13 @@ class block():
             return False
 
     def appendTransaction(self, transaction):
+        if len(self.transactionList) > (maxNTransactions - 1):
+            return 3
         if transaction.verify():
             self.transactionList.append(transaction)
             if len(self.transactionList) > (maxNTransactions - 1):
-                return True
+                return 0
             else:
-                return None
+                return 1
         else:
-            return False
+            return 2
