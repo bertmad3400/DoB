@@ -1,0 +1,222 @@
+\documentclass[a4paper, 8pt, oneside]{article} % A4 paper size, default 11pt font size and oneside for equal margins
+
+\newcommand{\plogo}{\fbox{$\mathcal{BM}$}}
+
+\usepackage{appendix}
+
+\usepackage{graphicx} % For images
+\graphicspath{ {images/} }
+
+\usepackage{scrextend} % For referencing the same footnote multiple times
+
+\usepackage{parskip} % For properly having seperated lines
+
+\usepackage{dblfnote} % For having footnotes in multiple collumns
+\DFNalwaysdouble % for this example
+
+\usepackage{microtype}
+
+\usepackage[danish]{babel} % For danish name of things like abstract
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+%\usepackage{fouriernc} % Use the New Century Schoolbook font
+
+% For adding colored text
+\usepackage[dvipsnames]{xcolor}
+
+\usepackage{listings}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\usepackage[
+citestyle=authoryear-ibid,
+]{biblatex}
+\addbibresource{SRU4.bib}
+
+\usepackage[margin=0.7in]{geometry}
+
+\usepackage {hyperref}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\lstset{style=mystyle}
+
+\begin{document} 
+
+\newgeometry{left=3cm,bottom=3cm}
+\begin{titlepage} % Suppresses headers and footers on the title page
+
+	\centering % Centre everything on the title page
+	
+	\scshape % Use small caps for all text on the title page
+	
+	\vspace*{\baselineskip} % White space at the top of the page
+	
+	%------------------------------------------------
+	%	Title
+	%------------------------------------------------
+	
+	\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} % Thick horizontal rule
+	\rule{\textwidth}{0.4pt} % Thin horizontal rule
+	
+	\vspace{0.75\baselineskip} % Whitespace above the title
+	
+	{\LARGE DEMOKRATI\\ OG\\ } % Title
+
+	\vspace{0.75\baselineskip} % Whitespace below the title
+
+	{\LARGE BLOCKCHAIN}
+
+	\vspace{0.75\baselineskip} % Whitespace below the title
+	
+	\rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % Thin horizontal rule
+	\rule{\textwidth}{1.6pt} % Thick horizontal rule
+	
+	\vspace{2\baselineskip} % Whitespace after the title block
+	
+	%------------------------------------------------
+	%	Subtitle
+	%------------------------------------------------
+	
+	Et dyk ned i hvordan vi kan anvender moderne teknologi at sikre vores demokratiske processer og gøre dem billigere, simplere og mere gennemskuelige.\\ 
+	Programmering og matematik% Subtitle or further description
+	
+	\vspace*{3\baselineskip} % Whitespace under the subtitle
+	
+	%------------------------------------------------
+	%	Editor(s)
+	%------------------------------------------------
+	
+	Skrevet af
+	
+	\vspace{0.5\baselineskip} % Whitespace before the editors
+	
+	{\scshape\Large Bertram Madsen - 5.BT} % Editor list
+	
+	\vspace{0.5\baselineskip} % Whitespace below the editor list
+	
+	\textit{Bagsværd kostskole og\\ Gymnasium} % Editor affiliation
+	
+	\vfill % Whitespace between editor names and publisher logo
+	
+	%------------------------------------------------
+	%	Publisher
+	%------------------------------------------------
+	
+	\plogo % Publisher logo
+	
+	\vspace{0.3\baselineskip} % Whitespace under the publisher logo
+	
+	2021 % Publication year
+	
+\end{titlepage}
+%----------------------------------------------------------------------------------------
+
+\newpage
+\tableofcontents
+\newpage
+
+\newpage
+\begin{abstract}
+	En demokratisk samfundstruktur er noget vi ser spille absolut central rolle i langt de fleste vestlige samfund, og noget som - til en vis grad - lægger til grund for næsten alle beslutninger og ændringer der idag bliver fortaget på landsplan i langt de fleste lande i hele verden.\footcite{desilver_despite_nodate}. På trods af dette er demokratiske proccessor - som bl.a. eksemplificeret ved det danske folktingsvalg - ikke nogle processor som får særligt meget opmærksomhed, og har derfor i stor grad ikke fulgt med den teknologiske udvikling som ellers har præget resten af de vestlige samfund.\\
+    
+	Dette projekt arbejder med at forsøge at belyse udfordringerne ved traditionelle valg, både i form af dem vi ser udelukkende ved brug af klassiske metoder som i Danmark, samt delvist digitaliserede valg som vi ser dem f.eks. i USA. I forbindelse med dette opstilles der et potentielt løsningsforslag ved brug af moderne blockchain teknologier, der redegøres for matematiken bag som gør det muligt og der diskuteres potentielle udfordringer ved denne type løsning og hvordan disse muligvis kan imødekommes.
+\end{abstract}
+
+\newpage
+
+\section{Introduktion}
+\label{Introduktion}
+Demokrati er en grundsten i vores samfund som vi kender dem i dag i Danmark og mange andre vestlige lande. Derfor er derfor også kritisk for vores samfund at demokratiske processer som de danske folketingsvalg og de amerikanske føderale valg er sikre og derved repræsentative for befolkningen, for at sikre at vores demokrati resulterer i noget som gavner flertallet i befolkningen. I lang tid har den primære måleskala for hvor repræsentative og derigennem hvor sunde demokratierne er været valgdetagelsen for befolkning, da den giver en god indikation af hvorvidt at valgresultatet egentligt er repræsentativt for befolkning.
+
+Desværre viser både valgdeltagelsen for de danske folkeafstemninger og kommunalvalg samt de amerikanske føderale valg til tider en bekymrende lav valgdeltagelse. Selvom de danske folketingsvalg siden 1953 har bibeholdt hvad mange ville beskrive som en sund stemmeprocent på over 80\%\footcite{clemmensen_folketingsvalgene_nodate}, så har de danske folkeafstemninger haft en svingende valgdeltagelse på mellem cirka 50\% og 85\%\footcite{clemmensen_folkeafstemninger_1953}, det sidste kommunalvalg i 2021 en stadigt faldende valgdeltagelse på 67,2\%\footcite{november_2021_stemmeprocent_2021} og de føderale valg i USE var helt nede omkring 37.5\% tilbage i 2014\footcite{noauthor_voter_nodate}.
+
+Men trods at valgdeltagelsen ved det føderale valg i USA i 2014 var så lav at mange ville argumentere for at den er grænsene til ikke længere rent faktisk at repræsentere den amerikanske befolkning var valgdeltagelsen ikke det eneste problem. Studier som "Who Votes Now?" skrevet af Jan E. Leighley og Jonathan Nagler\footcite{leighley_who_2013} og lignende har nemlig i nyere tid belyst nogle generelle tendenser, som gør det til en markant mere problematisk udfordring, nemlig at:
+
+\begin{enumerate}
+	\item Valgdeltagelsen er ikke bare lav, men også markant forskudt. Det er en tung overvægt af overklassen, og en klar underrepræsentation (relativt til antallet af stemmeberetigede) af den lave middelklasse og underklassen blandt de amerikanere der stemmer.
+	\item Dem der stemmer er ikke repræsentative for befolkningen. Altså har dem som stemmer nogle holdninger og præference som er så markant anderledes end dem der ikke stemmer, at hvis valgdeltagelsen 
+\end{enumerate}
+
+Lignende danske studier har - trods den markant højere danske valgdeltagelse - på lignene vis belyst tendenser i det danske samfund hvor der er en skævvridning i valgdeltagelsen på tværs af diverse demografiske grupper\footcite{bhatti_hvem_2014}, handler denne opgave om følgende problemformulering:\\
+
+\begin{center}
+    \textit{\Large Hvad er årsagen til den lave valgdeltagelse i både Danmark og USA, hvordan kan vi arbejde på at højne denne og hvilke udfordringer og konsekvenser vil der være ved føromtalte løsningsforslag.}
+\end{center}
+
+\newpage
+
+\section{Det nuværende problem}
+De specifikke årsager til at valgdeltagelsen ikke er højere i Danmark i nyere tid er desværre ikke noget der er har været særligt mange studier på, og dem der har været er ofte baseret på antagelser og meget små stikprøvestørrelser. Disse placere desuden ofte skylden på en generel følelse af manglende indflydelse blandt vælgerne\footcite{noauthor_demokratiet_nodate} eller politikerlede\footcite{ejsing_stor_2015}, hvilket begge er faktorer som er svære at ændre på uden en markant, udemokratisk indgriben.
+
+Amerikanske undersøgelser har tilgengæld vist et markant mere nuanceret billede. Et studie fra det amerikanske FiveThirtyEight - som laver dataindsamling og analyse - i samarbejde med det franske forskningsfirma Ipsos har blandt mere end 8.000 amerikanere fundet at den lave valgdeltagelse har mindre at gøre med de politiske forhold og mere at gøre med de praktiske\footcite{noauthor_why_2020}. Studiet har nemlig fundet at for et stor del amerikanere handler udfordringerne ved at stemme mindre om det politiske landskab og mere om dårlige praktiske forhold, som eksemplificerede ved at næsten 20\% rapportere at have ventet ved en stemmeboks i mere end en time, at mere end 10\% af dem som normalt ville stemme simpelthen missede deadlinen, og en lang række andre praktiske problemer. Ydermere har Ipsos i et andet studie bragt i Reuters fundet at 74\% af amerikanerne var bekymret for potentialet for organiseret valgsvindel i præsidentvalget for 2020, en grundlæggende manglende tillid til systemet der naturligvis kan være med til at sænke stemmeprocenten. Denne manglende tillid er desuden ifølge begge studier også noget som bliver forstærket af at vælgerne ikke er i stand til faktisk at verificere at deres stemme er blevet talt.
+
+Sammenholder vi dette med data fra Danmarks Statistik som viser at der stadig er flere og flere danskere som brevstemmer\footcite{nortoft_stadig_nodate} bliver to tendenser klare: 1. Vælgerne er til tider udfordret af de praktiske omstændigheder, noget som sænker valgdeltagelsen, og 2. Vælgerne er bekymret for sikkerheden ved diverse valg. Sammenholder vi disse data kan vi altså lave en liste over udfordringer ved den klassiske form for valg skal løse:
+
+\begin{enumerate}
+	\item Ventetiden for at stemme skal reduceres. Dette vil gøre det langt mindre uoverskueligt faktisk at få stemt.
+	\item Det skal være muligt at stemme ligegyldigt din fysiske lokation. Dette ville eliminere problemer som ikke at kunne finde stemmeboksen samt at skulle have fri for arbejde for at kunne stemme og ville samtidigt gøre det markant nemmere for vælgerne, da de ikke behøver at forlade husets trygge 4 rammer for at stemme.
+	\item Systemet skal være sikkert og gennemskuelig på en måde hvor det er muligt at bevise at der ikke er blevet snydt med valget. Dette ville skabe en tilid blandt befolkningen til at valget faktisk er forgået retfærdigt.
+\end{enumerate}
+
+Derudover kan vi også lave en list over krav hvor det ville være fordelagtigt hvis løsningen gav mulighed for at...
+
+\begin{enumerate}
+	\item ...ændre sin stemme. Herved ville der være mindre press på når man stemte (især som førstegangs-vælger), da man altid ville kunne ændre det hvis man skifte holdning.
+	\item ...benytte en decentraliseret model. Dette ville betyde at lige meget hvem der havde magten, ville de ikke være i stand til rykke ved valgresultatet.
+	\item ...verificere at ens stemme var blevet registreret og talt. Dette ville baseret på tidligere nævnte studier sandsynligvis øge valgdeltagelsen. 
+	\item ...følge med i valget live, som stemmerne rullede ind.
+\end{enumerate}
+
+Udover disse problemer er der også en del praktisk udfordringer associeret med sig. Det er (grundet landets størrelse) ikke nær så stort et problem her i Danmark, men i USA kan valgende godt vise sige at være et større projekt med en lang række praktiske udfordringer. Et estimat fra MIT placerer de årlige omkostninger for administrationen forbundet med de 2-årige føderale valg på et minimum af 2 milliarder dollars årligt. Derfor er det også centralt at vi udvikler en løsning der ikke bare opfylder de tidligere krav, men som også skalerbar og økonomisk bæredygtig.
+
+\subsection{Nuværende løsninger}
+Der er en række løsninger der i øjeblikket er blevet forsøg anvendt til at løse dele af tidligere omtalt problematik, men deres success har desværre været ganske begrænset. En af de nuværende løsning der i øjeblikket er blevet taget delvist i brug i dele af USA er den kontroversielle Voter ID lovgivning som kræver en form for identifikation (varierende fra stat til stat) for at stemme. Den forsøger at løse problemet hvor der sker valgsnyd på et individuelt plan, hvor et individ lykkedes med af flere omgange, ved at stemme på vegne af andre. Lovgivningen er som sagt kontroversiel, da der er mange politiske grupper og lobby organisationer der påstår at den forhindrer især visse demografiske grupper i at stemme, ved at gøre det så svært at det i praksis er umuligt. Der er endnu ikke entydig videnskabelig evidens som understøtter 
+
+STOPSTOP
+
+\newpage
+\appendix
+\section{Bilag}
+\subsection{OOP-kode}
+\subsubsection{Transactions}
+\lstinputlisting[language=Python]{../objects/transaction.py}
+\subsubsection{Blocks}
+\lstinputlisting[language=Python]{../objects/blocks.py}
+\subsubsection{Blockchains}
+\lstinputlisting[language=Python]{../objects/chain.py}
+\subsubsection{Wallets}
+\lstinputlisting[language=Python]{../objects/wallet.py}
+\subsection{Webserver-kode}
+\subsubsection{Flask-app}
+\lstinputlisting[language=Python]{../flaskApp/mainFlask.py}
+
+\newpage
+\printbibliography
+
+
+\end{document}
