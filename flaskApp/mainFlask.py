@@ -3,6 +3,14 @@ from flask import Flask, render_template, Response
 import json
 import sqlite3
 
+from Crypto.Hash import SHA256
+
+from base64 import b64decode
+
+from objects.transaction import transaction
+from objects.blocks import block
+from objects.chain import chain
+
 
 app = Flask(__name__)
 app.static_folder = "./static"
@@ -38,4 +46,8 @@ def returnPrivateKey(cpr, password):
 
 
 if __name__ == '__main__':
+    firstBlock = block(SHA256.new("0".encode("utf-8")), [])
+    firstBlock.calculatePoW()
+    currentChain = chain(firstBlock)
+    currentBlock = block(firstBlock.getBlockHash(), [])
     app.run(debug=True)
