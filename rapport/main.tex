@@ -29,7 +29,7 @@
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.96}
 
 \lstdefinestyle{mystyle}{
     backgroundcolor=\color{backcolour},
@@ -52,6 +52,7 @@
 
 \usepackage[
 citestyle=authoryear-ibid,
+bibstyle=apa,
 ]{biblatex}
 \addbibresource{SRU4.bib}
 
@@ -102,8 +103,11 @@ citestyle=authoryear-ibid,
 	%	Subtitle
 	%------------------------------------------------
 	
-	Et dyk ned i hvordan vi kan anvender moderne teknologi at sikre vores demokratiske processer og gøre dem billigere, simplere og mere gennemskuelige.\\ 
-	Programmering og matematik% Subtitle or further description
+	Et dyk ned i hvordan vi kan anvender moderne teknologi at sikre vores demokratiske processer og gøre dem billigere, simplere og mere gennemskuelige.\\
+
+	\vspace*{1\baselineskip} % Whitespace under the subtitle
+
+	Programmering B og Matematik A% Subtitle or further description
 	
 	\vspace*{3\baselineskip} % Whitespace under the subtitle
 	
@@ -120,6 +124,10 @@ citestyle=authoryear-ibid,
 	\vspace{0.5\baselineskip} % Whitespace below the editor list
 	
 	\textit{Bagsværd kostskole og\\ Gymnasium} % Editor affiliation
+
+	\vspace{0.3\baselineskip} % Whitespace below the editor list
+
+	\textit{Antal anslag: 20415} % Editor affiliation
 	
 	\vfill % Whitespace between editor names and publisher logo
 	
@@ -162,7 +170,7 @@ Men trods at valgdeltagelsen ved det føderale valg i USA i 2014 var så lav at 
 	\item Dem der stemmer er ikke repræsentative for befolkningen. Altså har dem som stemmer nogle holdninger og præference som er så markant anderledes end dem der ikke stemmer, at hvis valgdeltagelsen 
 \end{enumerate}
 
-Lignende danske studier har - trods den markant højere danske valgdeltagelse - på lignene vis belyst tendenser i det danske samfund hvor der er en skævvridning i valgdeltagelsen på tværs af diverse demografiske grupper\footcite{bhatti_hvem_2014}, handler denne opgave om følgende problemformulering:\\
+Lignende danske studier har - trods den markant højere danske valgdeltagelse - på lignene vis belyst tendenser i det danske samfund hvor der er en skævvridning i valgdeltagelsen på tværs af diverse demografiske grupper\footcite{bhatti_hvem_2014}, og derfor handler denne opgave om følgende problemformulering:\\
 
 \begin{center}
     \textit{\Large Hvad er årsagen til den lave valgdeltagelse i både Danmark og USA, hvordan kan vi arbejde på at højne denne og hvilke udfordringer og konsekvenser vil der være ved føromtalte løsningsforslag.}
@@ -200,7 +208,100 @@ Der er en række løsninger der i øjeblikket er blevet forsøg anvendt til at l
 USA har også i en årrække forsøgt og lykkedes at implementere digital stemmebokse for at arbejde på den enorme udfordring det er at have et valg der dækker et land på mere end 300 millioner indbygger. Desværre har dette vist sig at medføre markante problemer i forhold til sikkerheden, og den internationalle konferrence for IT-sikkerhed og hacking DEFCON skabte allerde i 2018 overskrifter landet over da de demonstrerede at det var så nemt at hacke de digitale stemmebokse at børn bogstaveligt talt var i stand til det\footcite{hern_kids_2018}. Derfor er dette naturligvis heller ikke en bæredygtig løsning, og selvom mere moderne digitale stemmebokse er under udvikling, er der sandsynligvis stadig meget lang tid til at de rammer markedet\footcite{ng_darpas_nodate}.
 
 \section{Nyt løsningsforslag}
-Det løsningforslag denne opgave beskæftiger sig med er et der minder meget om de digitale stemmebokse fra USA og på samme tid er radikalt anderledes. Frem for at anvende centraliserede digitale systemer anvendes der i dette projekt et blockchain system - nærmere beskrevet i "Designvalg" afsnittet
+Det løsningforslag denne opgave beskæftiger sig med er et der minder meget om de digitale stemmebokse fra USA og på samme tid er radikalt anderledes. Frem for at anvende centraliserede digitale systemer anvendes der i dette projekt et blockchain system - nærmere beskrevet i næste afsnit - som benytter sig af af matematik til at skabe en uforanderlig kæde af beskeder, hvor det er muligt at verificere afsenderen bag hver besked. Dette gøres ved brug af asymetrisk kryptering til at bevise afsenderen for hver besked, og hashingfunktioner til at verificere at kæden ikke er blevet modificeret.
+
+Denne model ville ikke bare løse samtlige af vores problemer vedrørende de praktiske forhold omkring at stemme (da det vil være muligt stemme øjeblikkeligt lige meget din fysiske lokation), men grundet strukturen bag en blockchain er det også en 100\% transparent måde at føre valg på, hvor det er matematisk muligt at bevise at den er sikker, og muligt for vælgerne ikke bare at følge med i valget live, men også at verificere at deres stemme faktisk er blevet både registreret og talt. Ydermere er det også en måde at stemme på, hvor de praktisk udfordringer vedrørende at holde valget er stærkt minimeret (men dog ikke fuldstændigt elimineret - for flere detaljer refere til underafsnittet "PoW - en praktisk udfordring") og hvor at stemmerne kan optælles i løbet af få sekunder. Altså er det en model der løser alle de tidligere problemer, om end den skaber også et par nye udfordringer vi skal arbejde lidt med.
+
+\newpage
+
+\section{Et dyk ned i teorien bag}
+Men selvom at en digitale valg opfylder mange af de tidligere krav, så opstiller det at stemme digitalt to nye krav nemligt at:
+
+\begin{enumerate}
+	\item Det skal være muligt at verificere hvilken vælger stemmen kommer fra.
+	\item Det skal være umuligt at skrive historien af stemmer om, når først den er nedskrevet (eller gemt digitalt).
+\end{enumerate}
+
+Disse er nogle krav som en blockchain løser ved hjælp af to lidt abstrakte koncepter, 1. signerede transaktioner og 2. proof of work i kombination med blokke, som illustreret i den følgende model:\\
+
+\begin{figure} [ht]
+  \centering
+  \includegraphics[width=0.95\textwidth]{blockchain.png}
+	\caption{https://www.mdpi.com/1424-8220/21/17/5874}
+  \label{fig:blockchain}
+\end{figure}
+
+
+Det simpleste element i en blockchain er hvad der ofte referres til som en "transaction", eller transaktion på Dansk. Navnet kommer fra kryptovalutaer, hvor hver transaktion svare til en bankoverførsel, men i dette system vil hver transaktion referer til en stemme udsendt af en vælger. Disse er på det simpleste niveau bare en datastruktur som indeholder et ID der unikt identificerer en vælger (i denne implementering vælgerens CPR-nummer), hvad de stemmer (f.eks. hvilket parti) samt en digital signatur der i forbindelse med en offentlige nøgler, knyttet til vælgerens ID kan bruges til at verificere at den eneste person der har været i stand til at afgive den stemme er vælgeren selv.
+
+Disse transaktioner kan herefter samles i bundter af transaktioner kaldet blokke og når der er tilstrækkeligt med transaktioner i en blok, "forsegles" blokken ved en ressource intensiv process ofte referret til som proof of work. Ved at bruge hashing funktioner sikre man her at det tager lang tid at "forsegle" blokken, men når først den er forseglet vil enhver ændring af blokkene bryde forseglingen, og det er desuden nemt matematisk er verificere at forseglingen er intakt.
+
+Sidst men ikke mindst har vi selve blockchain datastrukturen. Dette er - som navnet antyder - en kæde af blokke, hvor at hvis bare et enkelt led i kæden ændre, invalideres hele resten af kæden. Dette forgår ved at inden man forsegler hver blok inkluderes hashet af den tidligere blok i den nye blok. Dette betyder at det for hver blok er muligt at verificere at den tidligere blok ikke er blevet ændre, og derved er man i stand til at verificere hele kæden.
+
+\subsection{Teorien bag hashing algoritmer}
+Hashing funktioner er en funktion som tager en streng af data med en arbitrær længde ind i binær form og spytter en streng af data ud med en fast længde. Outputtet af en hashing funktion er per definition pseudo-tilfældig, hvilket betyder at outputtet ser tilfældigt ud, og det baseret på outputtet er (næsten) umuligt at finde det oprindelige input, men et givent input vil altid give det samme output. Derudover er sandsynligheden for at få det samme output fra to forskellige inputs (et begreb kendt som hash kollision) tæt på umulig (igen, per design). Dette gør hashing funktioner optimale til at verificere at indholdet af en datastruktur ikke har ændret sig, da den - lige meget datastrukturen - outputter et streng i et håndterbart og konsistent format, som er svær at forfalske.
+
+Selve hashfunktionen anvendt i dette projekt (og mange andre som f.eks. bitcoin) er SHA256, da den har alle de egenskaber listet ovenover og på samme tid tager det en forudsigelig og konsistent tid at beregne et hash for et vilkårligt input. Hashingfunktioner som SHA256 (og andre kendte hashing funktioner som SHA1 og MD5) benytter sig af en Merkel-Damgård konstruktion, hvor inputtet først bliver paddet med noget padding der koder for længden af inputtet (Merkle–Damgård forstærkning), hvorefter den bliver kørt igennem en en-vejs kompressions algoritme. Det Ralph Merkle og Ivan Damgård beviste var at så længe at algoritmeerne bag padding og kompressionen var kryptografisk stærke og kollisions-resistente, ville en hashing funktion bygget på dem også være kryptografisk stærk og kollisions-resistant.
+
+En en-vejs kompressions algoritme er som navnet antyder en funktion der er i stand til at komprimere data af en given størrelse kan i tilfældet af en Merkel-Damgård konstruktion indgå i hashing funktionen H således ud\footcite{thomsen_cryptographic_nodate}:
+
+Først defineres en række konstanter og funktioner:
+
+Clear text: M\\
+Clear text size: N\\
+Hash af clear text: h\\
+Hashing funktion: H(M) = h\\
+
+Herefter defineres komprimeringsalgoritmen som f, samt størrelsen af inputtet og outputtet, med følgende definition:
+
+Input størrelse: I\\
+Output størrelse: O\\
+
+\[f\left(\{0,1\}^O, \{0,1\}^{I-O}\right) \rightarrow \{0,1\}^O\]
+
+Nu hvor vores input er delt op i to, kan vi også definere to nye konstanter:
+
+Input 1 størrelse: $s_1$\\
+Input 2 størrelse: $s_2$\\
+
+Herefter kan funktionen $pad_{s_2, r}$ for at tilføje padding defineres som følgende:
+
+Givet inputtet, defineret tidligere som M, og input størrelsen, defineret tidligere som N, tilføj 1 '1' (sand) bit, og tilføje derefter $((- N - r - 1) \; mod\; s_2 )$ '0' (falsk) bits. Til sidst tilføjes en repræsentation af M med en størrelse r til M, hvorved vi har sikret at M kan deles op i n antal lige store dele som alle har størrelsen $s_2$. Denne tilføjes af en represæntation af M med en størrelse af r lægger godt nok en begrænsning på størrelsen af N (til at være $2^r - 1$), men i praksis er i denne grænse så høj at det ikke er problematisk, og denne tilføjelse gør algoritmen markant mere kollisions resistent (det kaldes Merkle-Damgård forstærkning).
+
+For at anvende vores hashing funktion H kan vi altså gøre følgende:
+
+\begin{enumerate}
+	\item Lad $M_p$ være en paddet version af M, ved brug af tidligere beskrevet algoritme, og lad $N_p$ være størrelsen af denne
+	\item Del $M_p$ op i t antal blokke $m_1 ... m_t$, hver med længden $s_2$
+	\item Lad $h_0$ en start-tilstand af H
+	\item Beregn $h_1$ til $h_t$ på følgende vis:
+		\[h_i \leftarrow f(h_{i - 1}, m_i), \;\; \textrm{for} \; 1 \leq i \leq t\]
+	\item Lad til sidst H(M) være lig $h_t$
+\end{enumerate}
+
+Herved har vi altså beskrevet hashing funktion baseret på Merkle-Damgård konstruktionen, og fordelen her er at så længe at f er kollisions resistent, er H det også. Hvad der specifikt forgår i f varierer fra algoritme til algoritme, men et simpelt proof of concept kunne se således ud, hvis man lader $I_1$ være det ene input, $I_2$ være det andet, og O være størrelsen af outputtet:
+
+\[f(I_1, I_2, O) = (I_1 + I_2) \; \textrm{mod} \; 2^O\]
+
+Ved brug af denne "smidder" vi så meget information væk ved brug af modulos operatoren at det bliver tæt på umuligt at genskabe den oprindelige betydning.
+
+\section{Udfordringer ved nuværende løsning}
+Selvom at en blockchain som koncept løser alle de tidligere problemer og opfylder de krav vi har opstillet, stiller den os over for nogle nye udfordringer, vi skal finde en måde at takle på hvis den skal have en chance for at blive anvendt til dette formål.
+
+\subsection{Offentlige stemmer}
+Den måske tydeligste udfordringer ved det nuværende system er at alle stemmer per design er offentlige. Når vi forsøger at udvikle en bedre løsning til vores eksisterende demokratier er dette naturligvis ikke et acceptabelt kompromis og derfor er det nødvendigt at finde end løsning på dette. Mulige løsninger inkludere at benytte et par asymetriske nøgler til at signere et andet par asymetriske nøgler som så bruges til at signere transaktionerne (om end dette ville kræve en centralisering af systemet), eller ved at benytte sig af "Blind Signing" som beskrevet af David Chaum i hans bog "Advances in Cryptology"\footcite{chaum_advances_2012}.
+
+\subsection{PoW - en praktisk udfordring}
+En af de største udfordringer vedrørende blockchains er at selv processen for at forsegle blokkene er per design ikke bare ressourceintensiv men også kritisk for netværket, hvorfor det er vigtigt - for at opretholde den decentraliserede struktur - at vi har en del noder på netværket, repræsenteret af vælgernes digitale enheder som mobiltelefoner og computerer. Dette kunne godt være problematisk, taget i betragtning af at et af de problemer vi forsøger at løse er en lav valgdeltagelse, da det ville yderligere komplicere processen for vælgerne.
+
+En interresant løsning på dette problem kunne være at frem for at anvende en decentraliseret blockchain, at anvende en kæde af transaktioner. Dette kunne gøres ved at have en centraliseret enhed som samler stemmer ind, og lade tidspunktet for stemmen indgå i transaktionen. Herved opnår vi desværret ikke en decentraliseret model, men vi opnår stadig en som løser samtlige af de praktiske udfordringer, dette problem og som er 100\% sikker og transparent.
+
+\section{Konklusion}
+Blockchain teknologi er en interresant mulighed for at sikre digitale valg, og gøre dem på en måde som giver borgeren mulighed for at følge med i valget, og garantere sikkerheden af det ved brug af matematiske funktioner. Det giver ydermere muligheden for at afholde flere valg end tidligere, da det er nemmere både at arrangere valgene og at stemme, men disse fordele er desværre ikke nogen som kommer uden udfordringer.
+
+Det kunne være interresant i fremtiden - som tidligere nævnt - at undersøge muligheden for i stedet for en blockchain at benytte sige af en kæde af rene transaktioner i stedet. Her kunne man ofre fordelene ved et decentraliseret system for at løse udfordringen med at have noder på netværket til at håndtere proof of work arbejde, hvilket stadig ville bibeholde mange af fordelene ved denne metode frem for klassiske måde at stemme på.
+
+Skulle dette implementeres på en sikker og effektiv måde og løses problemet med at alle stemmer er offentlige ville det sandsynligvis gøre denne teknologi til en reel fremtidsmulighed for valgende, og sikre de demokratiske processor langt ud i fremtiden.
 
 STOPSTOP
 
@@ -210,12 +311,15 @@ STOPSTOP
 \subsection{OOP-kode}
 \subsubsection{Transactions}
 \lstinputlisting[language=Python]{../objects/transaction.py}
+\newpage
 \subsubsection{Blocks}
 \lstinputlisting[language=Python]{../objects/blocks.py}
+\newpage
 \subsubsection{Blockchains}
 \lstinputlisting[language=Python]{../objects/chain.py}
 \subsubsection{Wallets}
 \lstinputlisting[language=Python]{../objects/wallet.py}
+\newpage
 \subsection{Webserver-kode}
 \subsubsection{Flask-app}
 \lstinputlisting[language=Python]{../flaskApp/mainFlask.py}
