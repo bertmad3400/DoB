@@ -83,6 +83,14 @@ def submitTransaction():
     else:
         return Response(response=json.dumps({"error" : "Transaction is not valid"}), mimetype="application/json", status=422)
 
+@app.route("/api/countVotes")
+def countVotes():
+    partyList = ["Test1", "Test2", "Test3"]
+    currentBlock.calculatePoW()
+    currentChain.append(currentBlock)
+    return Response(json.dumps(currentChain.countVotes(partyList)), mimetype='application/json')
+
+
 
 
 

@@ -22,3 +22,13 @@ class chain():
                     return False
 
         return True
+
+    def countVotes(self, partyList):
+        votes = {}
+        if self.verifyChain():
+            for block in self.blockchain():
+                for transaction in block.transactionList:
+                    if transaction.politicalParty in partyList:
+                        votes[transaction.cpr] = transaction.politicalParty
+
+        return votes
