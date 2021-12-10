@@ -16,17 +16,25 @@ app = Flask(__name__)
 app.static_folder = "./static"
 app.template_folder = "./templates"
 
+firstBlock = block(SHA256.new("0".encode("utf-8")), [])
+firstBlock.calculatePoW()
+currentChain = chain(firstBlock)
+currentBlock = block(firstBlock.getBlockHash(), [])
+
 def handleNewTransaction(transaction):
+    global currentBlock
     blockResponse = currentBlock.appendTransaction(transaction)
+    print(blockResponse)
+    print(len(currentBlock.transactionList))
 
     verifyFeedback = currentBlock.verifyTransactions()
     while verifyFeedback != -1:
         currentBlock.pop(verifyFeedback)
         verifyFeedback = currentBlock.verifyTransactions()
 
-    if blockResponse == 0:
+    if blockResponse == 1:
         currentBlock.calculatePoW()
-        if not currentChain.append(currentBlock):
+        if not currentChain.appendBlock(currentBlock):
             abort(500)
         currentBlock = block(currentChain.blockchain[-1].getBlockHash(), [])
     elif blockResponse == 2:
@@ -74,12 +82,14 @@ def submitTransaction():
 
     details["signature"] = b64decode(details["signature"])
 
-    details["publicKey"] = requestSingleDBEntry("publicKey", ["cpr"], [details["cpr"]])
+    details["publicKey"] = b64decode(requestSingleDBEntry("publicKey", ["cpr"], [details["cpr"]]))
 
     currentTransaction = transaction(details["username"], details["cpr"], details["politicalParty"], signature=details["signature"], publicKey=details["publicKey"])
 
     if currentTransaction.verify():
         handleNewTransaction(currentTransaction)
+        print(currentChain.blockchain)
+        return Response(response=json.dumps({"msg" : "Transaction successfully submitted"}), mimetype="application/json", status=200)
     else:
         return Response(response=json.dumps({"error" : "Transaction is not valid"}), mimetype="application/json", status=422)
 
@@ -87,7 +97,8 @@ def submitTransaction():
 def countVotes():
     partyList = ["Test1", "Test2", "Test3"]
     currentBlock.calculatePoW()
-    currentChain.append(currentBlock)
+    currentChain.appendBlock(currentBlock)
+    print(currentChain.blockchain)
     return Response(json.dumps(currentChain.countVotes(partyList)), mimetype='application/json')
 
 
@@ -95,8 +106,4 @@ def countVotes():
 
 
 if __name__ == '__main__':
-    firstBlock = block(SHA256.new("0".encode("utf-8")), [])
-    firstBlock.calculatePoW()
-    currentChain = chain(firstBlock)
-    currentBlock = block(firstBlock.getBlockHash(), [])
     app.run(debug=True)

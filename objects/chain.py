@@ -7,6 +7,7 @@ class chain():
             return False
 
     def appendBlock(self, blockToAppend):
+        print(blockToAppend.verifyTransactions() == -1, blockToAppend.verifyPoW(), blockToAppend.lastBlockHash.digest() == self.blockchain[-1].getBlockHash().digest())
         if blockToAppend.verifyTransactions() == -1 and blockToAppend.verifyPoW() and blockToAppend.lastBlockHash.digest() == self.blockchain[-1].getBlockHash().digest():
             self.blockchain.append(blockToAppend)
             return True
@@ -26,7 +27,7 @@ class chain():
     def countVotes(self, partyList):
         votes = {}
         if self.verifyChain():
-            for block in self.blockchain():
+            for block in self.blockchain:
                 for transaction in block.transactionList:
                     if transaction.politicalParty in partyList:
                         votes[transaction.cpr] = transaction.politicalParty

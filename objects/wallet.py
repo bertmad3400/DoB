@@ -20,4 +20,7 @@ class wallet():
         currentTransaction = transaction(username, self.cpr, politicalParty)
         currentTransaction.sign(self.publicKey, self.privateKey)
 
+        print(currentTransaction.toString())
+        print(currentTransaction.publicKey)
+
         return requests.post("http://localhost:5000/api/submitTransaction", data=json.dumps({"username" : username, "cpr": self.cpr, "politicalParty" : politicalParty, "signature" : b64encode(currentTransaction.signature).decode("utf-8")}))

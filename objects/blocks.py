@@ -46,7 +46,7 @@ class block():
             return 3
         if transaction.verify():
             self.transactionList.append(transaction)
-            if len(self.transactionList) > (maxNTransactions - 1):
+            if len(self.transactionList) < maxNTransactions:
                 return 0
             else:
                 return 1
