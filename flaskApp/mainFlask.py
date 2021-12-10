@@ -19,7 +19,7 @@ app.template_folder = "./templates"
 firstBlock = block(SHA256.new("0".encode("utf-8")), [])
 firstBlock.calculatePoW()
 currentChain = chain(firstBlock)
-currentBlock = block(firstBlock.getBlockHash(), [])
+currentBlock = block(currentChain.blockchain[-1].getBlockHash(), [])
 
 def handleNewTransaction(transaction):
     global currentBlock
@@ -39,9 +39,6 @@ def handleNewTransaction(transaction):
         currentBlock = block(currentChain.blockchain[-1].getBlockHash(), [])
     elif blockResponse == 2:
         abort(422)
-    elif blockResponse == 3:
-        abort(500)
-
 
 def requestSingleDBEntry(fieldName, identifierFields, identifierValues):
     conn = sqlite3.connect("users.db")
@@ -95,9 +92,11 @@ def submitTransaction():
 
 @app.route("/api/countVotes")
 def countVotes():
+    global currentBlock
     partyList = ["Test1", "Test2", "Test3"]
     currentBlock.calculatePoW()
     currentChain.appendBlock(currentBlock)
+    currentBlock = block(currentChain.blockchain[-1].getBlockHash(), [])
     print(currentChain.blockchain)
     return Response(json.dumps(currentChain.countVotes(partyList)), mimetype='application/json')
 
